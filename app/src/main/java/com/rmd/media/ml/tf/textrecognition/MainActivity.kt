@@ -2,7 +2,6 @@ package com.rmd.media.ml.tf.textrecognition
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.rmd.media.ml.tf.textrecognition.databinding.ActivityMainBinding
@@ -23,8 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         client = TextClassificationClient(applicationContext)
         handler = ContextCompat.getMainExecutor(this)
-        val classifyButton = findViewById<Button>(R.id.button)
-        classifyButton.setOnClickListener { classify(binding.inputText.text.toString()) }
+        binding.button.setOnClickListener { classify(binding.inputText.text.toString()) }
     }
 
     override fun onStart() {
