@@ -8,7 +8,7 @@ class Result(
      * A unique identifier for what has been classified. Specific to the class, not the instance of
      * the object.
      */
-    val id: String?,
+    private val id: String?,
     /**
      * Display name for the result.
      */
@@ -33,7 +33,7 @@ class Result(
         return resultString.trim { it <= ' ' }
     }
 
-    override fun compareTo(o: Result): Int {
-        return o.confidence!!.compareTo(confidence!!)
+    override fun compareTo(other: Result): Int {
+        return other.confidence!!.compareTo(confidence!!)
     }
 }

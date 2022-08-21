@@ -1,52 +1,49 @@
 package com.rmd.media.ml.tf.textrecognition
 
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-import android.widget.EditText
-import android.widget.ScrollView
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Button
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.rmd.media.ml.tf.textrecognition.databinding.ActivityMainBinding
+import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    private var handler: Executor? = null
     private var client: TextClassificationClient? = null
-    private var resultTextView: TextView? = null
-    private var inputEditText: EditText? = null
-    private var handler: Handler? = null
-    private var scrollView: ScrollView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        Log.v(TAG, "onCreate")
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         client = TextClassificationClient(applicationContext)
-        handler = Handler()
+        handler = ContextCompat.getMainExecutor(this)
         val classifyButton = findViewById<Button>(R.id.button)
-        classifyButton.setOnClickListener { v: View? -> classify(inputEditText!!.text.toString()) }
-        resultTextView = findViewById(R.id.result_text_view)
-        inputEditText = findViewById(R.id.input_text)
-        scrollView = findViewById(R.id.scroll_view)
+        classifyButton.setOnClickListener { classify(binding.inputText.text.toString()) }
     }
 
     override fun onStart() {
         super.onStart()
-        Log.v(TAG, "onStart")
-        handler!!.post { client!!.load() }
+        handler!!.execute { client!!.load() }
     }
 
     override fun onStop() {
         super.onStop()
-        Log.v(TAG, "onStop")
-        handler!!.post { client!!.unload() }
+        handler!!.execute { client!!.unload() }
     }
+
 
     /**
      * Send input text to TextClassificationClient and get the classify messages.
      */
     private fun classify(text: String) {
-        handler!!.post {
+
+        handler!!.execute {
 
             // Run text classification with TF Lite.
             val results = client!!.classify(text)
@@ -70,17 +67,13 @@ class MainActivity : AppCompatActivity() {
             textToShow += "---------\n"
 
             // Append the result to the UI.
-            resultTextView!!.append(textToShow)
+            binding.resultTextView.append(textToShow)
 
             // Clear the input text.
-            inputEditText!!.text.clear()
+            binding.inputText.text.clear()
 
             // Scroll to the bottom to show latest entry's classification result.
-            scrollView!!.post { scrollView!!.fullScroll(View.FOCUS_DOWN) }
+            binding.scrollView.post { binding.scrollView.fullScroll(View.FOCUS_DOWN) }
         }
-    }
-
-    companion object {
-        private const val TAG = "TextClassificationDemo"
     }
 }
