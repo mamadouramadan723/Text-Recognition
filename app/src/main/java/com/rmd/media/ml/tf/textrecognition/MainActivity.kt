@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         client = TextClassificationClient(applicationContext)
         handler = ContextCompat.getMainExecutor(this)
+
         binding.button.setOnClickListener { classify(binding.inputText.text.toString()) }
     }
 
