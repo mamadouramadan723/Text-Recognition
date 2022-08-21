@@ -10,6 +10,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+
+            name 'ossrh-snapshot'
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
+            allowInsecureProtocol = true
+        }
     }
 }
 rootProject.name = "Text Recognition"
