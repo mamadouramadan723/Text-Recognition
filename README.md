@@ -1,21 +1,21 @@
-TensorFlow Lite text classification sample
-Overview
+# TensorFlow Lite text classification sample
+## Overview
 This is an end-to-end example of movie review sentiment classification built with TensorFlow 2.0 (Keras API), and trained on IMDB dataset. The demo app processes input movie review texts, and classifies its sentiment into negative (0) or positive (1).
 
 These instructions walk you through the steps to train and test a simple text classification model, export them to TensorFlow Lite format and deploy on a mobile app.
 
-Model
+## Model
 See Text Classification with Movie Reviews for a step-by-step instruction of building a simple text classification model.
 
-Android app
+## Android app
 Follow the steps below to build and run the sample Android app.
 
-Requirements
+## Requirements
 Android Studio 3.2 or later. Install instructions can be found on Android Studio website.
 
 An Android device or an Android emulator and with API level higher than 21.
 
-Building
+## Building
 Open Android Studio, and from the Welcome screen, select Open an existing Android Studio project.
 
 From the Open File or Project window that appears, navigate to and select the text_classification/android directory from wherever you cloned the TensorFlow Lite sample GitHub repo.
